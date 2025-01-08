@@ -8,7 +8,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import { MOBILE_BREAKPOINT } from "../../utils/constants";
 
 /**
  * Responsive table component that adapts to screen size
@@ -18,7 +19,6 @@ import PropTypes from 'prop-types'
  * @param {Function} props.renderActions Optional callback to render action buttons
  */
 
-const MOBILE_BREAKPOINT = 768;
 const CustomTable = ({ columns, data, renderActions }) => {
   // Determine if viewport is mobile
   const [isMobile, setIsMobile] = useState(

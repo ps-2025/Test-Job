@@ -5,3 +5,5 @@ export const projectTableHeads = [
   { key: "endDate", label: "End Date" },
   { key: "manager", label: "Project Manager" },
 ];
+
+export const MOBILE_BREAKPOINT = 768;
