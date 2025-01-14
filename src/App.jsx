@@ -1,5 +1,9 @@
 import React, { Suspense, useMemo } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import LoadingSpinner from "@components/common/LoadingSpinner";
 import { useProjects } from "@hooks/useProjects";
 import { useResponsive } from "@hooks/useResponsive";
@@ -49,7 +53,7 @@ const App = () => {
                 element={<ProjectDetail projects={projects} />}
               />
               <Route
-                path="/new"
+                path="/projects/new"
                 element={
                   <ProjectEdit projects={projects} onSave={handleSave} />
                 }

@@ -1,4 +1,3 @@
-
 import React, { useMemo, memo } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
@@ -30,6 +29,9 @@ const FormField = ({
         helperText={helperText}
         fullWidth
         margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
         {...props}
       />
     ),

@@ -15,6 +15,8 @@ export const createAppStyles = (isMobile) => ({
     marginLeft: isMobile ? 0 : "260px",
     width: isMobile ? "100%" : "calc(100% - 260px)",
     boxSizing: "border-box",
+    marginTop: "20px",
+    marginRight: "40px"
   },
   sidebar: {
     width: isMobile ? "100%" : "260px",

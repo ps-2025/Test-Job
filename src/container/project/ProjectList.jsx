@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Grid } from "@mui/material";
 import { PropTypes } from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { FavoriteBorder, Favorite } from "@mui/icons-material";
 
 import { projectTableHeads } from "@utils/constants";
 import CustomTable from "@components/common/CustomTable";
@@ -33,7 +32,11 @@ const ProjectList = ({ projects }) => {
               handleFavoriteClick(project);
             }}
           >
-            {isFavorite(project?.id) ? <Favorite /> : <FavoriteBorder />}
+            {isFavorite(project?.id) ? (
+              <img src="/images/favorite.svg" alt="icon" />
+            ) : (
+              <img src="/images/favorite-active.svg" alt="icon" />
+            )}
           </Button>
         </Grid>
         <Grid item>
@@ -52,11 +55,19 @@ const ProjectList = ({ projects }) => {
   };
 
   return (
-    <CustomTable
-      columns={projectTableHeads}
-      data={projects}
-      renderActions={renderActions}
-    />
+    <>
+      <Grid display={"flex"} justifyContent={"end"} marginBottom={"20px"}>
+        <Button variant="contained" onClick={() => navigate("/projects/new")}>
+          Create Project
+        </Button>
+      </Grid>
+
+      <CustomTable
+        columns={projectTableHeads}
+        data={projects}
+        renderActions={renderActions}
+      />
+    </>
   );
 };
 

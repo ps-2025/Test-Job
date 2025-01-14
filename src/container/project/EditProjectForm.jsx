@@ -40,7 +40,12 @@ FormFields.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-const ProjectForm = ({ initialData = {}, onSubmit, isLoading = false }) => {
+const ProjectForm = ({
+  initialData = {},
+  onSubmit,
+  isLoading = false,
+  submitLabel,
+}) => {
   const [{ formData, errors }, setState] = useState(() => ({
     ...initialState,
     formData: initialData,
@@ -73,6 +78,7 @@ const ProjectForm = ({ initialData = {}, onSubmit, isLoading = false }) => {
     () => ({
       onSubmit: handleSubmit,
       disabled: isLoading || !isValid,
+      submitLabel: submitLabel,
     }),
     [handleSubmit, isLoading, isValid]
   );

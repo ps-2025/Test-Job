@@ -85,8 +85,8 @@ const ProjectDetail = ({ projects }) => {
         <img
           src={
             project?.isFavorite
-              ? "/images/star-icon.png"
-              : "/images/default-icon.png"
+              ? "/images/favorite-active.svg"
+              : "/images/favorite.svg"
           }
           alt={project?.isFavorite ? "Favorite Project" : "Not Favorite"}
           width={32}

@@ -5,6 +5,7 @@ import EditProjectForm from "./EditProjectForm";
 import { Box, CircularProgress } from "@mui/material";
 import ErrorMessage from "@components/common/ErrorMessage";
 import { api } from "@services/project-api";
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * Project editing component that handles form display and submission
@@ -23,8 +24,20 @@ const ProjectEdit = ({ projects, onSave }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const isEditMode = Boolean(id);
+
+  useMemo(() => {
+    if (!isEditMode) {
+      setProject((prevState) => ({
+        ...prevState,
+        id: uuidv4(),
+      }));
+    }
+  }, [isEditMode]);
+
   // Fetch project data
   useEffect(() => {
+    if (!isEditMode) return;
     const fetchProject = async () => {
       try {
         setLoading(true);
@@ -46,39 +59,52 @@ const ProjectEdit = ({ projects, onSave }) => {
     };
 
     fetchProject();
-  }, [id]);
+  }, [id, isEditMode]);
 
   const handleSave = useCallback(
     async (formData) => {
       try {
         setError(null);
 
-        // Update project
-        const updatedProject = await api.updateProject(formData);
+        if (isEditMode) {
+          // Update project
+          const updatedProject = await api.updateProject(formData);
 
-        // Check if project is in favorites and update if necessary
-        const favorites = await api.getFavoriteProjects();
-        const isFavorite = favorites.find((fav) => fav.id === formData.id);
+          // Check if project is in favorites and update if necessary
+          const favorites = await api.getFavoriteProjects();
+          const isFavorite = favorites.find((fav) => fav.id === formData.id);
 
-        if (isFavorite) {
-          await api.updateFavoriteProject({
-            id: formData.id,
-            name: formData.name,
-          });
-        }
+          if (isFavorite) {
+            await api.updateFavoriteProject({
+              id: formData.id,
+              name: formData.name,
+            });
+          }
 
-        // Call the onSave prop to update parent component state
-        if (onSave) {
-          onSave(updatedProject);
+          // Call the onSave prop to update parent component state
+          if (onSave) {
+            onSave(updatedProject);
+          }
+        } else {
+          const newProject = await api.createProject(formData);
+
+          onSave(newProject);
         }
 
         navigate("/");
       } catch (err) {
-        setError(err.message || `Failed to save  project`);
-        console.error(`Error  "saving"  project:`, err);
+        // setError(err.message || `Failed to save  project`);
+        // console.error(`Error  "saving"  project:`, err);
+        setError(
+          err.message || `Failed to ${isEditMode ? "save" : "create"} project`
+        );
+        console.error(
+          `Error ${isEditMode ? "saving" : "creating"} project:`,
+          err
+        );
       }
     },
-    [navigate]
+    [navigate, isEditMode, onSave]
   );
 
   if (loading) {
@@ -102,7 +128,13 @@ const ProjectEdit = ({ projects, onSave }) => {
     );
   }
 
-  return <EditProjectForm initialData={project || {}} onSubmit={handleSave} />;
+  return (
+    <EditProjectForm
+      initialData={project || {}}
+      onSubmit={handleSave}
+      submitLabel={isEditMode ? "Save" : "Create"}
+    />
+  );
 };
 
 ProjectEdit.propTypes = {
