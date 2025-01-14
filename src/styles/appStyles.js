@@ -11,12 +11,11 @@ export const createAppStyles = (isMobile) => ({
     width: "100%",
   },
   mainContent: {
-    marginTop: isMobile ? "100px" : 0,
+    marginTop: isMobile ? "100px" : "20px",
     marginLeft: isMobile ? 0 : "260px",
     width: isMobile ? "100%" : "calc(100% - 260px)",
     boxSizing: "border-box",
-    marginTop: "20px",
-    marginRight: "40px"
+    marginRight: "40px",
   },
   sidebar: {
     width: isMobile ? "100%" : "260px",
@@ -44,5 +43,6 @@ export const createProductDetailStyles = (isMobile) => ({
     display: "flex",
     gap: "24px",
     marginTop: "24px",
+    marginLeft: "80px",
   },
 });

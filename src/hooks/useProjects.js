@@ -50,10 +50,21 @@ export const useProjects = () => {
     }
   };
 
+  const handleSaveOnCreate = async (newProject) => {
+    try {
+      // Handle the case when a project is created
+      setProjects([...projects, newProject]);
+    } catch (error) {
+      console.error("Error saving project:", error);
+      throw error;
+    }
+  };
+
   return {
     projects,
     isLoading,
     error,
     handleSave,
+    handleSaveOnCreate,
   };
 };

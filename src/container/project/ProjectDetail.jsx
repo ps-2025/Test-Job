@@ -76,12 +76,12 @@ const ProjectDetail = ({ projects }) => {
     <Box style={styles.container}>
       {/* Header */}
       <Box style={styles.header}>
-        <Typography variant="body1">
-          Project ID:{" "}
-          <Box component="span" sx={{ marginLeft: "14px" }}>
-            {project?.id}
+        <Box sx={{ display: "flex" }}>
+          <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
+            <Typography sx={{ float: "right" }}>Project ID:</Typography>
           </Box>
-        </Typography>
+          <Typography>{project?.id}</Typography>
+        </Box>
         <img
           src={
             project?.isFavorite
@@ -95,37 +95,36 @@ const ProjectDetail = ({ projects }) => {
       </Box>
 
       {/* Project Details */}
-      <Typography variant="body1">
-        Project Name:{" "}
-        <Box component="span" sx={{ marginLeft: "14px" }}>
-          {project?.name}
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ minWidth: "150px", marginRight: "14px" }}>
+          <Typography sx={{ float: "right" }}>Project Name:</Typography>
         </Box>
-      </Typography>
-      <Typography variant="body1">
-        Description:{" "}
-        <Box component="span" sx={{ marginLeft: "14px" }}>
-          {project?.description}
+        <Typography>{project?.name}</Typography>
+      </Box>
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
+          <Typography sx={{ float: "right" }}>Description:</Typography>
         </Box>
-      </Typography>
-
-      <Typography variant="body1">
-        Start Date:{" "}
-        <Box component="span" sx={{ marginLeft: "14px" }}>
-          {project?.startDate}
+        <Typography>{project?.description}</Typography>
+      </Box>
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
+          <Typography sx={{ float: "right" }}>Start Date:</Typography>
         </Box>
-      </Typography>
-      <Typography variant="body1">
-        End Date:{" "}
-        <Box component="span" sx={{ marginLeft: "14px" }}>
-          {project?.endDate}
+        <Typography>{project?.startDate}</Typography>
+      </Box>
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
+          <Typography sx={{ float: "right" }}>End Date:</Typography>
         </Box>
-      </Typography>
-      <Typography variant="body1">
-        Project Manager:{" "}
-        <Box component="span" sx={{ marginLeft: "14px" }}>
-          {project?.manager}
+        <Typography>{project?.endDate}</Typography>
+      </Box>
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
+          <Typography sx={{ float: "right" }}>Project Manager:</Typography>
         </Box>
-      </Typography>
+        <Typography>{project?.manager}</Typography>
+      </Box>
 
       {/* Buttons */}
       <Box style={styles.buttonContainer}>

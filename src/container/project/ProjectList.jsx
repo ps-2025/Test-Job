@@ -23,21 +23,27 @@ const ProjectList = ({ projects }) => {
 
   const renderActions = (project) => {
     return (
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems={"center"}>
         <Grid item>
-          <Button
-            variant="contained"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleFavoriteClick(project);
-            }}
-          >
-            {isFavorite(project?.id) ? (
-              <img src="/images/favorite.svg" alt="icon" />
-            ) : (
-              <img src="/images/favorite-active.svg" alt="icon" />
-            )}
-          </Button>
+          {isFavorite(project?.id) ? (
+            <img
+              src="/images/favorite.svg"
+              alt="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFavoriteClick(project);
+              }}
+            />
+          ) : (
+            <img
+              src="/images/favorite-active.svg"
+              alt="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFavoriteClick(project);
+              }}
+            />
+          )}
         </Grid>
         <Grid item>
           <Button

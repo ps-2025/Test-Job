@@ -8,18 +8,24 @@ const NavList = React.memo(({ title, items }) => {
   const navItems = useMemo(
     () =>
       items?.map((item) => (
-        <NavItem
-          style={{
-            boxShadow:
-              "0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)",
-            borderRadius: "8px",
-            padding: "16px",
-            color: "#000",
-          }}
+        <ListItem
           key={item?.id}
-          to={`/projects/${item?.id}`}
-          text={item?.name}
-        />
+          sx={{
+            padding: "0",
+            paddingLeft: "20px",
+            marginLeft: "32px",
+          }}
+        >
+          •
+          <NavItem
+            style={{
+              borderRadius: "8px",
+              color: "#000",
+            }}
+            to={`/projects/${item?.id}`}
+            text={item?.name}
+          />
+        </ListItem>
       )),
     [items]
   );

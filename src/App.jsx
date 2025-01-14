@@ -1,9 +1,5 @@
 import React, { Suspense, useMemo } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoadingSpinner from "@components/common/LoadingSpinner";
 import { useProjects } from "@hooks/useProjects";
 import { useResponsive } from "@hooks/useResponsive";
@@ -18,8 +14,14 @@ import ProjectDetail from "@container/project/ProjectDetail";
  * @returns {JSX.Element} The rendered App component
  */
 const App = () => {
-  const { projects, favoriteProjects, isLoading, error, handleSave } =
-    useProjects();
+  const {
+    projects,
+    favoriteProjects,
+    isLoading,
+    error,
+    handleSave,
+    handleSaveOnCreate,
+  } = useProjects();
 
   const isMobile = useResponsive();
   const styles = useMemo(() => createAppStyles(isMobile), [isMobile]);
@@ -55,7 +57,10 @@ const App = () => {
               <Route
                 path="/projects/new"
                 element={
-                  <ProjectEdit projects={projects} onSave={handleSave} />
+                  <ProjectEdit
+                    projects={projects}
+                    onSave={handleSaveOnCreate}
+                  />
                 }
               />
             </Routes>
