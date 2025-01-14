@@ -17,7 +17,7 @@ const NavList = React.memo(({ title, items }) => {
             color: "#000",
           }}
           key={item?.id}
-          to={`/edit/${item?.id}`}
+          to={`/projects/${item?.id}`}
           text={item?.name}
         />
       )),

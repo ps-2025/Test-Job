@@ -24,3 +24,23 @@ export const createAppStyles = (isMobile) => ({
     height: isMobile ? "auto" : "100vh",
   },
 });
+
+export const createProductDetailStyles = (isMobile) => ({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    padding: "80px 16px 16px 40px",
+    gap: "24px",
+    width: isMobile ? "100%" : "600px",
+  },
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  buttonContainer: {
+    display: "flex",
+    gap: "24px",
+    marginTop: "24px",
+  },
+});

@@ -6,7 +6,8 @@ import { useResponsive } from "@hooks/useResponsive";
 import { createAppStyles } from "./styles/appStyles";
 import ProjectList from "@container/project/ProjectList";
 import ProjectEdit from "@container/project/ProjectEdit";
-import Sidebar from '@components/Sidebar/Sidebar'
+import Sidebar from "@components/Sidebar/Sidebar";
+import ProjectDetail from "@container/project/ProjectDetail";
 
 /**
  * Main application component that handles routing and layout
@@ -20,7 +21,7 @@ const App = () => {
   const styles = useMemo(() => createAppStyles(isMobile), [isMobile]);
 
   if (isLoading) {
-    return <LoadingSpinner/>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
@@ -31,22 +32,23 @@ const App = () => {
     <Router>
       <div style={styles.container}>
         <div style={styles.sidebar}>
-          <Sidebar favoriteProjects={favoriteProjects}/>
+          <Sidebar favoriteProjects={favoriteProjects} />
         </div>
         <main style={styles.mainContent}>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
+              <Route path="/" element={<ProjectList projects={projects} />} />
               <Route
-                path="/"
-                element={<ProjectList projects={projects} />}
-              />
-              <Route
-                path="/edit/:id"
+                path="/projects/:id/edit"
                 element={
                   <ProjectEdit projects={projects} onSave={handleSave} />
                 }
               />
-               <Route
+              <Route
+                path="/projects/:id"
+                element={<ProjectDetail projects={projects} />}
+              />
+              <Route
                 path="/new"
                 element={
                   <ProjectEdit projects={projects} onSave={handleSave} />

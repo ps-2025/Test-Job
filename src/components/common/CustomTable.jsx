@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { MOBILE_BREAKPOINT } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Responsive table component that adapts to screen size
@@ -20,6 +21,7 @@ import { MOBILE_BREAKPOINT } from "../../utils/constants";
  */
 
 const CustomTable = ({ columns, data, renderActions }) => {
+  const navigate = useNavigate();
   // Determine if viewport is mobile
   const [isMobile, setIsMobile] = useState(
     window.innerWidth <= MOBILE_BREAKPOINT
@@ -53,7 +55,11 @@ const CustomTable = ({ columns, data, renderActions }) => {
         </TableHead>
         <TableBody>
           {data.map((row) => (
-            <TableRow key={row.id}>
+            <TableRow
+              key={row.id}
+              onClick={() => navigate(`/projects/${row?.id}`)}
+              sx={{ cursor: "pointer" }}
+            >
               {columns.map((column) => (
                 <TableCell key={`${row.id}-${column.key}`}>
                   {row[column.key]}

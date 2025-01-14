@@ -28,7 +28,10 @@ const ProjectList = ({ projects }) => {
         <Grid item>
           <Button
             variant="contained"
-            onClick={() => handleFavoriteClick(project)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleFavoriteClick(project);
+            }}
           >
             {isFavorite(project?.id) ? <Favorite /> : <FavoriteBorder />}
           </Button>
@@ -36,7 +39,10 @@ const ProjectList = ({ projects }) => {
         <Grid item>
           <Button
             variant="contained"
-            onClick={() => navigate(`/edit/${project.id}`)}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/projects/${project.id}/edit`);
+            }}
           >
             Edit
           </Button>
