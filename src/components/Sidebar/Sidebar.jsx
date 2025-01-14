@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Drawer, useTheme, useMediaQuery } from "@mui/material";
 import NavList from "../common/NavList";
@@ -38,11 +37,6 @@ const Sidebar = React.memo(() => {
       </SidebarContainer>
     </Drawer>
   );
-});
-
-const projectShape = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
 });
 
 Sidebar.displayName = "Sidebar";

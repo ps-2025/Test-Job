@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 
 const Form = ({
   onSubmit,
@@ -19,11 +19,11 @@ const Form = ({
 
   const submitButton = useMemo(
     () => (
-      <Box mt={2}>
+      <Grid marginTop={4} marginLeft={20}>
         <Button type="submit" variant="contained" disabled={disabled}>
           {submitLabel}
         </Button>
-      </Box>
+      </Grid>
     ),
     [submitLabel]
   );

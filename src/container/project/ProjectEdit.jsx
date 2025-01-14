@@ -129,11 +129,13 @@ const ProjectEdit = ({ projects, onSave }) => {
   }
 
   return (
-    <EditProjectForm
-      initialData={project || {}}
-      onSubmit={handleSave}
-      submitLabel={isEditMode ? "Save" : "Create"}
-    />
+    <Box m={5}>
+      <EditProjectForm
+        initialData={project || {}}
+        onSubmit={handleSave}
+        submitLabel={isEditMode ? "Update" : "Create"}
+      />
+    </Box>
   );
 };
 

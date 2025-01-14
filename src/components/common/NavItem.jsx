@@ -20,6 +20,7 @@ const NavItem = React.memo(({ to, text, style }) => (
 NavItem.propTypes = {
   to: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 
 NavItem.displayName = "NavItem";

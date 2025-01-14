@@ -1,3 +1,5 @@
+import * as Yup from "yup";
+
 export const PROJECT_FORM_FIELDS = [
   {
     name: "id",
@@ -11,7 +13,7 @@ export const PROJECT_FORM_FIELDS = [
   },
   {
     name: "description",
-    label: "Project Description",
+    label: "Description",
     required: true,
   },
   {
@@ -33,32 +35,12 @@ export const PROJECT_FORM_FIELDS = [
   },
 ];
 
-export const validateProject = (values) => {
-  const errors = {};
-
-  if (!values.name?.trim()) {
-    errors.name = "Project name is required";
-  }
-
-  if (!values.description?.trim()) {
-    errors.description = "Description is required";
-  }
-
-  if (!values.startDate) {
-    errors.startDate = "Start date is required";
-  }
-
-  if (!values.endDate) {
-    errors.endDate = "End date is required";
-  }
-
-  if (values.startDate && values.endDate && values.startDate > values.endDate) {
-    errors.endDate = "End date must be after start date";
-  }
-
-  if (!values.manager?.trim()) {
-    errors.manager = "Project manager is required";
-  }
-
-  return errors;
-};
+export const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Project name is required"),
+  description: Yup.string().required("Description is required"),
+  startDate: Yup.date().required("Start date is required"),
+  endDate: Yup.date()
+    .required("End date is required")
+    .min(Yup.ref("startDate"), "End date must be after start date"),
+  manager: Yup.string().required("Project manager is required"),
+});

@@ -1,26 +1,24 @@
-import { PropTypes } from "prop-types";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   PROJECT_FORM_FIELDS,
-  validateProject,
 } from "@form-configs/project-form";
+import { PropTypes } from "prop-types";
+import { useFormik } from "formik";
 import Form from "@components/common/Form";
 import FormField from "@components/common/FormField";
+import { validationSchema } from "../../form-configs/project-form";
 
-const initialState = {
-  formData: {},
-  errors: {},
-};
-
-const FormFields = React.memo(({ fields, formData, errors, onChange }) => (
+const FormFields = React.memo(({ fields, formik }) => (
   <>
     {fields.map((field) => (
       <FormField
         key={field.name}
-        value={formData[field.name] || ""}
-        onChange={onChange}
-        error={Boolean(errors[field.name])}
-        helperText={errors[field.name]}
+        name={field.name}
+        value={formik.values[field.name] || ""}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
+        helperText={formik.touched[field.name] && formik.errors[field.name]}
         {...field}
       />
     ))}
@@ -35,9 +33,7 @@ FormFields.propTypes = {
       type: PropTypes.string,
     })
   ).isRequired,
-  formData: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
+  formik: PropTypes.object.isRequired,
 };
 
 const ProjectForm = ({
@@ -46,62 +42,49 @@ const ProjectForm = ({
   isLoading = false,
   submitLabel,
 }) => {
-  const [{ formData, errors }, setState] = useState(() => ({
-    ...initialState,
-    formData: initialData,
-  }));
-
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setState((prev) => ({
-      ...prev,
-      formData: { ...prev.formData, [name]: value },
-      errors: { ...prev.errors, [name]: "" },
-    }));
-  }, []);
-
-  const handleSubmit = useCallback(() => {
-    const validationErrors = validateProject(formData);
-    if (Object.keys(validationErrors).length > 0) {
-      setState((prev) => ({
-        ...prev,
-        errors: validationErrors,
-      }));
-      return;
-    }
-    onSubmit(formData);
-  }, [formData, onSubmit]);
-
-  const isValid = useMemo(() => Object.keys(errors).length === 0, [errors]);
+  const formik = useFormik({
+    initialValues: {
+      id: initialData.id || "",
+      name: initialData.name || "",
+      description: initialData.description || "",
+      startDate: initialData.startDate || "",
+      endDate: initialData.endDate || "",
+      manager: initialData.manager || "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      onSubmit(values);
+    },
+  });
 
   const formProps = useMemo(
     () => ({
-      onSubmit: handleSubmit,
-      disabled: isLoading || !isValid,
+      onSubmit: formik.handleSubmit,
       submitLabel: submitLabel,
     }),
-    [handleSubmit, isLoading, isValid]
+    [formik.handleSubmit, isLoading, formik.isValid, formik.dirty]
   );
-
   return (
     <Form {...formProps}>
-      <FormFields
-        fields={PROJECT_FORM_FIELDS}
-        formData={formData}
-        errors={errors}
-        onChange={handleChange}
-      />
+       <FormFields fields={PROJECT_FORM_FIELDS} formik={formik} />
     </Form>
   );
 };
 
+ProjectForm.displayName = "ProjectForm";
+
 ProjectForm.propTypes = {
   initialData: PropTypes.shape({
+    id: PropTypes.string,
     name: PropTypes.string,
     description: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    manager: PropTypes.string,
   }),
   onSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  submitLabel: PropTypes.string,
 };
 
 export default React.memo(ProjectForm);
