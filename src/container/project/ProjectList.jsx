@@ -29,7 +29,7 @@ const ProjectList = ({ projects }) => {
         <Grid item>
           {isFavorite(project?.id) ? (
             <img
-              src={FavImage}
+              src={FavActiveImage}
               alt="icon"
               onClick={(e) => {
                 e.stopPropagation();
@@ -38,7 +38,7 @@ const ProjectList = ({ projects }) => {
             />
           ) : (
             <img
-              src={FavActiveImage}
+              src={FavImage}
               alt="icon"
               onClick={(e) => {
                 e.stopPropagation();
