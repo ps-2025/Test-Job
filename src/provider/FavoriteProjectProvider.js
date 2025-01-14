@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import PropTypes from "prop-types";
 
 // Create context
 const FavoriteProjectsContext = createContext();
@@ -62,4 +63,8 @@ export const FavoriteProjectsProvider = ({ children }) => {
       {children}
     </FavoriteProjectsContext.Provider>
   );
+};
+
+FavoriteProjectsProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

@@ -25,6 +25,9 @@ const FormFields = React.memo(({ fields, formik }) => (
   </>
 ));
 
+
+FormFields.displayName = "FormFields";
+
 FormFields.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({

@@ -1,9 +1,14 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 
-module.exports = {
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+export default {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -54,7 +59,14 @@ module.exports = {
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
           priority: -10,
+        },
+        commons: {
+          name: "commons",
+          chunks: "initial",
+          minChunks: 2,
         },
         default: {
           minChunks: 2,
@@ -67,28 +79,28 @@ module.exports = {
       new TerserPlugin({
         terserOptions: {
           compress: {
-            drop_console: true,
+            drop_console: false,
           },
         },
       }),
     ],
-    splitChunks: {
-      chunks: "all",
-      minSize: 20000,
-      maxSize: 244000,
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
-        },
-        commons: {
-          name: "commons",
-          chunks: "initial",
-          minChunks: 2,
-        },
-      },
-    },
+    // splitChunks: {
+    //   chunks: "all",
+    //   minSize: 20000,
+    //   maxSize: 244000,
+    //   cacheGroups: {
+    // vendor: {
+    //   test: /[\\/]node_modules[\\/]/,
+    //   name: "vendors",
+    //   chunks: "all",
+    // },
+    // commons: {
+    //   name: "commons",
+    //   chunks: "initial",
+    //   minChunks: 2,
+    // },
+    //   },
+    // },
     runtimeChunk: "single",
     usedExports: true,
   },

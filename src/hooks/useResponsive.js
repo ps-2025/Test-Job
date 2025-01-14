@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import MOBILE_BREAKPOINT from "../../src/utils/constants";
+// import MOBILE_BREAKPOINT from "../../src/utils/constants";
+import { MOBILE_BREAKPOINT } from "../utils/constants";
 /**
  * Custom hook for handling responsive design
  * @param {number} breakpoint - The breakpoint width in pixels
