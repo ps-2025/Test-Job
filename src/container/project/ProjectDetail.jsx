@@ -6,6 +6,8 @@ import ErrorMessage from "@components/common/ErrorMessage";
 import { api } from "@services/project-api";
 import { createProductDetailStyles } from "../../styles/appStyles";
 import { useResponsive } from "@hooks/useResponsive";
+import FavImage from "../../assets/images/favorite.svg";
+import FavActiveImage from "../../assets/images/favorite-active.svg";
 
 /**
  * Project editing component that handles form display and submission
@@ -83,11 +85,7 @@ const ProjectDetail = ({ projects }) => {
           <Typography>{project?.id}</Typography>
         </Box>
         <img
-          src={
-            project?.isFavorite
-              ? "/images/favorite-active.svg"
-              : "/images/favorite.svg"
-          }
+          src={project?.isFavorite ? FavActiveImage : FavImage}
           alt={project?.isFavorite ? "Favorite Project" : "Not Favorite"}
           width={32}
           height={32}

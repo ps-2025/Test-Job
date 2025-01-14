@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { projectTableHeads } from "@utils/constants";
 import CustomTable from "@components/common/CustomTable";
 import { useFavoriteProjects } from "@provider/FavoriteProjectProvider";
+import FavImage from "../../assets/images/favorite.svg";
+import FavActiveImage from "../../assets/images/favorite-active.svg";
 
 const ProjectList = ({ projects }) => {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ const ProjectList = ({ projects }) => {
         <Grid item>
           {isFavorite(project?.id) ? (
             <img
-              src="/images/favorite.svg"
+              src={FavImage}
               alt="icon"
               onClick={(e) => {
                 e.stopPropagation();
@@ -36,7 +38,7 @@ const ProjectList = ({ projects }) => {
             />
           ) : (
             <img
-              src="/images/favorite-active.svg"
+              src={FavActiveImage}
               alt="icon"
               onClick={(e) => {
                 e.stopPropagation();
