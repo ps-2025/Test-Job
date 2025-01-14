@@ -31,6 +31,17 @@ export const api = {
     }
   },
 
+  // Favorite Projects
+  getFavoriteProjects: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/favoriteProjects`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching favorite projects:", error);
+      throw handleApiError(error);
+    }
+  },
+
   updateProject: async (project) => {
     try {
       if (!project.id) {
@@ -44,6 +55,21 @@ export const api = {
     } catch (error) {
       console.error("Error updating project:", error);
       throw handleApiError(error);
+    }
+  },
+  updateFavoriteProject: async (project) => {
+    try {
+      if (!project.id) {
+        project.id = generateId();
+      }
+      const response = await axios.put(
+        `${API_BASE_URL}/favoriteProjects/${project.id}`,
+        project
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating favorite project:", error);
+      throw error;
     }
   },
 };
