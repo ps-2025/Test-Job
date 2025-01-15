@@ -9,6 +9,9 @@ import { useResponsive } from "@hooks/useResponsive";
 import FavImage from "../../assets/images/favorite.svg";
 import FavActiveImage from "../../assets/images/favorite-active.svg";
 import { useFavoriteProjects } from "@provider/FavoriteProjectProvider";
+import { BACK_BUTTON_TEXT } from "@utils/constants";
+import { EDIT_BUTTON_TEXT } from "@utils/constants";
+import { PROJECT_ID_LABEL } from "@utils/constants";
 
 /**
  * Project editing component that handles form display and submission
@@ -24,7 +27,7 @@ const ProjectDetail = ({ projects }) => {
   const [project, setProject] = useState(null);
   const isMobile = useResponsive();
   const styles = useMemo(() => createProductDetailStyles(isMobile), [isMobile]);
-  const { addToFavorites, removeFromFavorites, isFavorite, favorites } =
+  const { addToFavorites, removeFromFavorites, isFavorite } =
     useFavoriteProjects();
 
   useMemo(() => projects?.find((p) => p.id === parseInt(id)), [projects, id]);
@@ -57,8 +60,8 @@ const ProjectDetail = ({ projects }) => {
   }, [id]);
 
   const handleFavoriteClick = (project) => {
-    if (isFavorite(project.id)) {
-      removeFromFavorites(project.id);
+    if (isFavorite(project?.id)) {
+      removeFromFavorites(project?.id);
     } else {
       addToFavorites(project);
     }
@@ -91,13 +94,13 @@ const ProjectDetail = ({ projects }) => {
       <Box style={styles.header}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
-            <Typography sx={{ float: "right" }}>Project ID:</Typography>
+            <Typography sx={{ float: "right" }}>{PROJECT_ID_LABEL}</Typography>
           </Box>
           <Typography>{project?.id}</Typography>
         </Box>
         <img
           src={isFavorite(project?.id) ? FavActiveImage : FavImage}
-          alt={project?.isFavorite ? "Favorite Project" : "Not Favorite"}
+          alt={isFavorite(project?.id) ? "Favorite Project" : "Not Favorite"}
           width={32}
           height={32}
           onClick={(e) => {
@@ -107,36 +110,7 @@ const ProjectDetail = ({ projects }) => {
       </Box>
 
       {/* Project Details */}
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ minWidth: "150px", marginRight: "14px" }}>
-          <Typography sx={{ float: "right" }}>Project Name:</Typography>
-        </Box>
-        <Typography>{project?.name}</Typography>
-      </Box>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
-          <Typography sx={{ float: "right" }}>Description:</Typography>
-        </Box>
-        <Typography>{project?.description}</Typography>
-      </Box>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
-          <Typography sx={{ float: "right" }}>Start Date:</Typography>
-        </Box>
-        <Typography>{project?.startDate}</Typography>
-      </Box>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
-          <Typography sx={{ float: "right" }}>End Date:</Typography>
-        </Box>
-        <Typography>{project?.endDate}</Typography>
-      </Box>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
-          <Typography sx={{ float: "right" }}>Project Manager:</Typography>
-        </Box>
-        <Typography>{project?.manager}</Typography>
-      </Box>
+      <ProjectDetails project={project} />
 
       {/* Buttons */}
       <Box style={styles.buttonContainer}>
@@ -145,19 +119,49 @@ const ProjectDetail = ({ projects }) => {
           color="primary"
           onClick={() => navigate("/")}
         >
-          Back
+          {BACK_BUTTON_TEXT}
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={() => navigate(`/projects/${id}/edit`)}
         >
-          Edit
+          {EDIT_BUTTON_TEXT}
         </Button>
       </Box>
     </Box>
   );
 };
+
+/**
+ * Displays project details in rows.
+ * @param {Object} props Component props.
+ * @param {Object} props.project The project object.
+ */
+const ProjectDetails = ({ project }) => (
+  <>
+    <DetailRow label="Project Name" value={project?.name} />
+    <DetailRow label="Description" value={project?.description} />
+    <DetailRow label="Start Date" value={project?.startDate} />
+    <DetailRow label="End Date" value={project?.endDate} />
+    <DetailRow label="Project Manager" value={project?.manager} />
+  </>
+);
+
+/**
+ * Renders a single detail row with a label and value.
+ * @param {Object} props Component props.
+ * @param {string} props.label The label for the detail.
+ * @param {string} props.value The value for the detail.
+ */
+const DetailRow = ({ label, value }) => (
+  <Box sx={{ display: "flex" }}>
+    <Box sx={{ minWidth: "150px", marginRight: "18px" }}>
+      <Typography sx={{ float: "right" }}>{label}:</Typography>
+    </Box>
+    <Typography>{value}</Typography>
+  </Box>
+);
 
 ProjectDetail.propTypes = {
   projects: PropTypes.arrayOf(
