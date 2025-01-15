@@ -5,7 +5,7 @@ import EditProjectForm from "./EditProjectForm";
 import { Box, CircularProgress } from "@mui/material";
 import ErrorMessage from "@components/common/ErrorMessage";
 import { api } from "@services/project-api";
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 
 /**
  * Project editing component that handles form display and submission
@@ -30,7 +30,7 @@ const ProjectEdit = ({ projects, onSave }) => {
     if (!isEditMode) {
       setProject((prevState) => ({
         ...prevState,
-        id: uuidv4(),
+        id: nanoid(8),
       }));
     }
   }, [isEditMode]);
