@@ -8,6 +8,8 @@ import CustomTable from "@components/common/CustomTable";
 import { useFavoriteProjects } from "@provider/FavoriteProjectProvider";
 import FavImage from "../../assets/images/favorite.svg";
 import FavActiveImage from "../../assets/images/favorite-active.svg";
+import { EDIT_BUTTON_TEXT } from "@utils/constants";
+import { CREATE_BUTTON_TEXT } from "@utils/constants";
 
 const ProjectList = ({ projects }) => {
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ const ProjectList = ({ projects }) => {
               navigate(`/projects/${project.id}/edit`);
             }}
           >
-            Edit
+            {EDIT_BUTTON_TEXT}
           </Button>
         </Grid>
       </Grid>
@@ -65,7 +67,7 @@ const ProjectList = ({ projects }) => {
     <>
       <Grid display={"flex"} justifyContent={"end"} marginBottom={"20px"}>
         <Button variant="contained" onClick={() => navigate("/projects/new")}>
-          Create Project
+          {CREATE_BUTTON_TEXT}
         </Button>
       </Grid>
 
@@ -84,7 +86,6 @@ ProjectList.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
     })
   ).isRequired,
 };

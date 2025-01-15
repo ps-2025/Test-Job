@@ -1,5 +1,6 @@
-import { PropTypes } from 'prop-types';
-import React from 'react';
+import { PropTypes } from "prop-types";
+import React from "react";
+import { ERROR_TEXT } from "@utils/constants";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -12,12 +13,12 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+    console.error("Error caught by boundary:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      return <div>Something went wrong. Please try again later.</div>;
+      return <div>{ERROR_TEXT}</div>;
     }
 
     return this.props.children;

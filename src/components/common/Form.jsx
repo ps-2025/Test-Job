@@ -4,6 +4,7 @@ import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { createProductDetailStyles } from "../../styles/appStyles";
 import { useResponsive } from "@hooks/useResponsive";
+import { BACK_BUTTON_TEXT } from "@utils/constants";
 
 const Form = ({
   onSubmit,
@@ -32,7 +33,7 @@ const Form = ({
           color="primary"
           onClick={() => navigate("/")}
         >
-          Back
+          {BACK_BUTTON_TEXT}
         </Button>
         <Button type="submit" variant="contained" disabled={disabled}>
           {submitLabel}
