@@ -3,35 +3,26 @@
     {
       "id": "121321",
       "name": "News",
-      "startDate": "2023-01-01",
-      "endDate": "2024-02-10",
-      "manager": "Edaa",
       "description": "Description",
-      "isFavorite": true
+      "startDate": "2023-01-14",
+      "endDate": "2024-02-17",
+      "manager": "Koshik"
     },
     {
       "id": "202310",
       "name": "Timeline",
+      "description": "Timeline Descriiption",
       "startDate": "2023-06-15",
       "endDate": "2025-01-02",
-      "manager": "Edward",
-      "description": "Timeline Descriiption",
-      "isFavorite": false
+      "manager": "Evis"
     },
     {
       "id": "783532",
-      "name": "Test project",
+      "name": "Fallover",
       "startDate": "2023-01-20",
       "endDate": "2024-05-02",
-      "manager": "Odrds",
-      "description": "Test Description",
-      "isFavorite": false
-    }
-  ],
-  "favoriteProjects": [
-    {
-      "id": "121321",
-      "name": "News"
+      "manager": "Orod",
+      "description": "Test Description"
     }
   ]
 }
