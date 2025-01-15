@@ -1,6 +1,9 @@
 import React, { memo, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { createProductDetailStyles } from "../../styles/appStyles";
+import { useResponsive } from "@hooks/useResponsive";
 
 const Form = ({
   onSubmit,
@@ -9,6 +12,10 @@ const Form = ({
   disabled = false,
   ...props
 }) => {
+  const navigate = useNavigate();
+  const isMobile = useResponsive();
+  const styles = useMemo(() => createProductDetailStyles(isMobile), [isMobile]);
+
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -19,11 +26,18 @@ const Form = ({
 
   const submitButton = useMemo(
     () => (
-      <Grid marginTop={4} marginLeft={20}>
+       <Box style={styles.buttonContainer}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/")}
+        >
+          Back
+        </Button>
         <Button type="submit" variant="contained" disabled={disabled}>
           {submitLabel}
         </Button>
-      </Grid>
+      </Box>
     ),
     [submitLabel]
   );
