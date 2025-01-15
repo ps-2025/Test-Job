@@ -8,6 +8,7 @@ import { createProductDetailStyles } from "../../styles/appStyles";
 import { useResponsive } from "@hooks/useResponsive";
 import FavImage from "../../assets/images/favorite.svg";
 import FavActiveImage from "../../assets/images/favorite-active.svg";
+import { useFavoriteProjects } from "@provider/FavoriteProjectProvider";
 
 /**
  * Project editing component that handles form display and submission
@@ -23,6 +24,8 @@ const ProjectDetail = ({ projects }) => {
   const [project, setProject] = useState(null);
   const isMobile = useResponsive();
   const styles = useMemo(() => createProductDetailStyles(isMobile), [isMobile]);
+  const { addToFavorites, removeFromFavorites, isFavorite, favorites } =
+    useFavoriteProjects();
 
   useMemo(() => projects?.find((p) => p.id === parseInt(id)), [projects, id]);
   const [loading, setLoading] = useState(false);
@@ -52,6 +55,14 @@ const ProjectDetail = ({ projects }) => {
 
     fetchProject();
   }, [id]);
+
+  const handleFavoriteClick = (project) => {
+    if (isFavorite(project.id)) {
+      removeFromFavorites(project.id);
+    } else {
+      addToFavorites(project);
+    }
+  };
 
   if (loading) {
     return (
@@ -85,10 +96,13 @@ const ProjectDetail = ({ projects }) => {
           <Typography>{project?.id}</Typography>
         </Box>
         <img
-          src={project?.isFavorite ? FavActiveImage : FavImage}
+          src={isFavorite(project?.id) ? FavActiveImage : FavImage}
           alt={project?.isFavorite ? "Favorite Project" : "Not Favorite"}
           width={32}
           height={32}
+          onClick={(e) => {
+            handleFavoriteClick(project);
+          }}
         />
       </Box>
 

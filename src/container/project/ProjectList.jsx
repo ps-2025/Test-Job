@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Grid } from "@mui/material";
 import { PropTypes } from "prop-types";
 import { useNavigate } from "react-router-dom";
-
 import { projectTableHeads } from "@utils/constants";
 import CustomTable from "@components/common/CustomTable";
 import { useFavoriteProjects } from "@provider/FavoriteProjectProvider";
